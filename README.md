@@ -22,3 +22,25 @@ sudo mkdir /var/lib/prometheus
 ```
 sudo mkdir -p /etc/prometheus/
 ```
+### Step 3: Download Prometheus on Ubuntu 22.04/20.04/18.04
+#### We need to download the latest release of Prometheus archive and extract it to get binary files.
+#### Install wget
+```
+sudo apt update
+sudo apt -y install wget curl vim
+```
+#### Then download latest binary archive for Prometheus
+```
+mkdir -p /tmp/prometheus && cd /tmp/prometheus
+curl -s https://api.github.com/repos/prometheus/prometheus/releases/latest | grep browser_download_url | grep linux-amd64 | cut -d '"' -f 4 | wget -qi -
+```
+#### Extract the file:
+```
+tar xvf prometheus*.tar.gz
+cd prometheus*/
+```
+#### Move the binary files to /usr/local/bin/ directory.
+```
+sudo mv prometheus promtool /usr/local/bin/
+```
+#### Check installed version:
