@@ -105,7 +105,7 @@ scrape_configs:
 
     static_configs:
     - targets: ['localhost:9090']
-    ```
+```
 #### You can edit the file to your default liking and save it.
 
 ### Create a Prometheus systemd Service unit file
