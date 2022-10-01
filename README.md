@@ -18,3 +18,7 @@ sudo useradd -s /sbin/nologin --system -g prometheus prometheus
 ```
 sudo mkdir /var/lib/prometheus
 ```
+#### Prometheus primary configuration files directory is /etc/prometheus/. It will have some sub-directories:
+```
+sudo mkdir -p /etc/prometheus/
+```
