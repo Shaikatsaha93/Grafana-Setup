@@ -179,4 +179,4 @@ Jan 19 14:36:08 deb10 prometheus[1397]: level=info ts=2020-01-19T14:36:08.967Z c
   ```
   sudo ufw allow 9090/tcp
   ```
-  
+  ![Capture](https://user-images.githubusercontent.com/32926005/193406275-286e016c-20c4-47d7-b50e-c55203cb0835.PNG)
