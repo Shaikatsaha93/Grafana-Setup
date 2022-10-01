@@ -4,4 +4,7 @@
 
 ### Step 1: Create Prometheus system group
 
+```
 $ sudo groupadd --system prometheus
+
+```
