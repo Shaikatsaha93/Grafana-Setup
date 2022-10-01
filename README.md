@@ -44,3 +44,19 @@ cd prometheus*/
 sudo mv prometheus promtool /usr/local/bin/
 ```
 #### Check installed version:
+```
+$ prometheus --version
+prometheus, version 2.35.0 (branch: HEAD, revision: 6656cd29fe6ac92bab91ecec0fe162ef0f187654)
+  build user:       root@cf6852b14d68
+  build date:       20220421-09:53:42
+  go version:       go1.18.1
+  platform:         linux/amd64
+
+$ promtool --version
+promtool, version 2.35.0 (branch: HEAD, revision: 6656cd29fe6ac92bab91ecec0fe162ef0f187654)
+  build user:       root@cf6852b14d68
+  build date:       20220421-09:53:42
+  go version:       go1.18.1
+  platform:         linux/amd64
+  ```
+  
