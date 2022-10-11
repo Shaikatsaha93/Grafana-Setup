@@ -234,4 +234,76 @@ Jan 19 14:36:08 deb10 prometheus[1397]: level=info ts=2020-01-19T14:36:08.967Z c
   systemctl enable grafana-server
   ```
   #### You can now check the status of the Grafana with the following command:
+  ```
+  systemctl status grafana-server
+  ```
+  #### You will get the following output:
+  ```
+  ● grafana-server.service - Grafana instance
+     Loaded: loaded (/lib/systemd/system/grafana-server.service; disabled; vendor preset: enabled)
+     Active: active (running) since Wed 2022-04-06 14:39:27 UTC; 5s ago
+       Docs: http://docs.grafana.org
+   Main PID: 2761 (grafana-server)
+      Tasks: 9 (limit: 2348)
+     Memory: 32.2M
+     CGroup: /system.slice/grafana-server.service
+             └─2761 /usr/sbin/grafana-server --config=/etc/grafana/grafana.ini --pidfile=/run/grafana/grafana-server.pid --packaging=deb cfg:>
+
+Apr 06 14:39:29 ubuntu2004 grafana-server[2761]: logger=sqlstore t=2022-04-06T14:39:29.83+0000 lvl=info msg="Created default admin" user=admin
+Apr 06 14:39:29 ubuntu2004 grafana-server[2761]: logger=sqlstore t=2022-04-06T14:39:29.83+0000 lvl=info msg="Created default organization"
+Apr 06 14:39:29 ubuntu2004 grafana-server[2761]: logger=plugin.manager t=2022-04-06T14:39:29.89+0000 lvl=info msg="Plugin registered" pluginI>
+Apr 06 14:39:29 ubuntu2004 grafana-server[2761]: logger=plugin.finder t=2022-04-06T14:39:29.9+0000 lvl=warn msg="Skipping finding plugins as >
+Apr 06 14:39:29 ubuntu2004 grafana-server[2761]: logger=query_data t=2022-04-06T14:39:29.9+0000 lvl=info msg="Query Service initialization"
+Apr 06 14:39:29 ubuntu2004 grafana-server[2761]: logger=live.push_http t=2022-04-06T14:39:29.91+0000 lvl=info msg="Live Push Gateway initiali>
+Apr 06 14:39:30 ubuntu2004 grafana-server[2761]: logger=server t=2022-04-06T14:39:30.11+0000 lvl=info msg="Writing PID file" path=/run/grafan>
+Apr 06 14:39:30 ubuntu2004 grafana-server[2761]: logger=http.server t=2022-04-06T14:39:30.12+0000 lvl=info msg="HTTP Server Listen" address=[>
+Apr 06 14:39:30 ubuntu2004 grafana-server[2761]: logger=ngalert t=2022-04-06T14:39:30.13+0000 lvl=info msg="warming cache for startup"
+Apr 06 14:39:30 ubuntu2004 grafana-server[2761]: logger=ngalert.multiorg.alertmanager t=2022-04-06T14:39:30.13+0000 lvl=info msg="starting Mu>
+```
+#### At this point, Grafana is started and listens on port 3000. You can check it with the following command:
+```
+ss -antpl | grep 3000
+```
+#### You should see the following output:
+```
+LISTEN    0         4096                     *:3000                   *:*        users:(("grafana-server",pid=2761,fd=8))  
+```
+
+### Configure Nginx as a Reverse Proxy for Grafana
+#### Next, you will need to install the Nginx as a reverse proxy for Grafana. First, install the Nginx package using the following command:
+```
+apt-get install nginx -y
+```
+#### Once the Nginx is installed, create an Nginx virtual host configuration file:
+```
+nano /etc/nginx/conf.d/grafana.conf
+```
+Server {
+        server_name grafana.example.com;
+        listen 80 ;
+        access_log /var/log/nginx/grafana.log;
+
+    location / {
+                proxy_pass http://localhost:3000;
+        proxy_set_header Host $http_host;
+                proxy_set_header X-Forwarded-Host $host:$server_port;
+                proxy_set_header X-Forwarded-Server $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}
+```
+#### Save and close the file then verify the Nginx configuration file using the following command:
+```
+nginx -t
+```
+#### You will get the following output:
+```
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+#### Finally, restart the Nginx service to apply the changes:
+```
+systemctl restart nginx
+```
+
   
