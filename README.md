@@ -308,4 +308,15 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 systemctl restart nginx
 ```
 
-  
+### Access Grafana Dashboard
+#### Now, open your web browser and access the Grafana dashboard using the URL ubuntus-erver-IP:3000 You will be redirected to the Grafana login page:
+
+  ![Capture](https://user-images.githubusercontent.com/32926005/195158647-2915e61f-906b-40db-80ec-a926e211bdbf.PNG)
+
+#### Provide default admin username and password as admin/admin and click on the Log in button. You should see the Grafana password change screen:
+
+![installing-grafana-on-ubuntu-20 04](https://user-images.githubusercontent.com/32926005/195160245-2e7c39fd-3b29-4a6c-b501-ebd34f1edbf1.png)
+
+#### Change your default password and click on the Submit button. You should see the Grafana dashboard on the following screen:
+
+![grafana-on-ubuntu-20 04](https://user-images.githubusercontent.com/32926005/195160436-e4b1f5d2-4a23-49ba-87be-7481fc2071cc.png)
