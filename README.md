@@ -186,5 +186,52 @@ Jan 19 14:36:08 deb10 prometheus[1397]: level=info ts=2020-01-19T14:36:08.967Z c
   
   
   ## How to Install Grafana on Ubuntu 20.04
+  ### Log in via SSH and Update your System
+  #### First, you will need to log in to your Ubuntu 20.04 VPS via SSH as the root user:
+  ```
+  ssh root@IP_ADDRESS -p PORT_NUMBER
+  ```
+  #### Next, run the following commands to upgrade all installed packages on your VPS:
+  ```
+  apt-get update -y
+  ```
+  #### Once all the packages are updated, restart your system to apply the changes.
   
+  ### Add Grafana Repository
+  #### By default, the Grafana package is not included in the Ubuntu 20.04 default repository. So you will need to add the Grafana official repository to your system.
+  #### First, install all required dependencies using the following command:
+  ```
+  apt-get install wget curl gnupg2 apt-transport-https software-properties-common -y
+  ```
+  #### Next, download and add the Grafana GPG key with the following command:
+  ```
+  wget -q -O - https://packages.grafana.com/gpg.key | apt-key add -
+  ```
+  #### Next, add the Grafana repository to APT using the following command:
+  ```
+  echo "deb https://packages.grafana.com/oss/deb stable main" | tee -a /etc/apt/sources.list.d/grafana.list
+  ```
+  #### Once the repository is added to your system, you can update it with the following command:
+  ```
+  apt-get update -y
+  ```
+  ### Install Grafana
+  #### Now, you can install the Grafana by running the following command:
+  ```
+  apt-get install grafana -y
+  ```
+  #### Once the Grafana package is installed, verify the Grafana version with the following command:
+  ```
+  grafana-server -v
+  ```
+  #### You will get the following output:
+  ```
+  Version 8.4.5 (commit: 4cafe613e1, branch: HEAD)
+  ```
+  #### Now, start the Grafana service and enable it to start at system reboot:
+  ```
+  systemctl start grafana-server
+  systemctl enable grafana-server
+  ```
+  #### You can now check the status of the Grafana with the following command:
   
