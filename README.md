@@ -278,6 +278,8 @@ apt-get install nginx -y
 ```
 nano /etc/nginx/conf.d/grafana.conf
 ```
+#### Add the following lines:
+```
 Server {
         server_name grafana.example.com;
         listen 80 ;
