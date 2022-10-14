@@ -320,3 +320,43 @@ systemctl restart nginx
 #### Change your default password and click on the Submit button. You should see the Grafana dashboard on the following screen:
 
 ![grafana-on-ubuntu-20 04](https://user-images.githubusercontent.com/32926005/195160436-e4b1f5d2-4a23-49ba-87be-7481fc2071cc.png)
+
+## Install Node Exporter
+#### In other server install node exporter using this link:
+```
+https://prometheus.io/download/#node_exporter
+```
+#### In order to start the Node Exporter we need to run ./node_exporter command from the Node Exporter directory
+#### We can view the UI of node exporter at <Public IP:9100>
+![1_LOkF5SrQtaZtanT5NkZB5g](https://user-images.githubusercontent.com/32926005/195909016-6023fdb5-b28f-45e4-ad1c-d21e5ecf54a9.jpeg)
+
+## Change the configuration file
+#### Prometheus manages the configuration file named prometheus.yml in which we can define various configuration like alerts, scrape_configs etc.
+#### In order for Prometheus to gather the metrics of the Linux node we need to define below code in prometheus.yml under the scrape_configs stanza
+```
+- job_name: "Node Exporter"
+  static_configs:
+    - targets: ["<Public IP of Node:9100"]
+```
+#### After adding the code we can check our node as a target in the Prometheus. It will take some time for Prometheus to gather all the metrics and display the state of node to Up.
+![1_yAeN4UXTj21BSg2DHbeVmw](https://user-images.githubusercontent.com/32926005/195910938-c3622cd6-7f20-4652-bf09-ed691258cae4.jpeg)
+## Add data source in Grafana
+#### Now in Grafana we need to add Prometheus as the data source
+#### After that, in the URL section of we need to enter the IP address of the Prometheus server and 9090 port
+![1_KW-m21-VhMguV-tigTfwDg](https://user-images.githubusercontent.com/32926005/195911200-5c543409-5128-4090-a4bd-059f0ca0eacf.jpeg)
+
+## Import a Dashboard
+#### In Grafana we can create our own dashboards but in we already have many pre-created dashboards also.
+#### So, in this section we will import one of the dashboards by it’s ID
+#### In Grafana, Under the create section click on import, and type 1860 in the ID section and click on load.
+#### Select data source as Prometheus and click on import.
+#### It will import below dashboard.
+
+![1_8rzqQUwtW9HtrZC1HlBxYg](https://user-images.githubusercontent.com/32926005/195911962-2761f0e3-7f89-4068-ba07-ed21d35dc575.jpeg)
+
+#### From the above dashboard we can have the overview of the entire server.
+#### We can have the details of CPU usage, Load on server, RAM usage, Uptime of the server etc.
+#### We can modify the dashboard also as per our need.
+```
+https://grafana.com/
+```
