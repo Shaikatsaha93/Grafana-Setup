@@ -358,5 +358,5 @@ https://prometheus.io/download/#node_exporter
 #### We can have the details of CPU usage, Load on server, RAM usage, Uptime of the server etc.
 #### We can modify the dashboard also as per our need.
 ```
-https://grafana.com/
+https://grafana.com/grafana/dashboards/
 ```
